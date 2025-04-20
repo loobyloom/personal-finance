@@ -1,36 +1,28 @@
-import pandas as pd
-from jinja2 import Environment, FileSystemLoader
-from weasyprint import HTML
-from datetime import datetime
-from pathlib import Path
+from fpdf import FPDF
 
-def generate_report(df: pd.DataFrame, month: str, template_dir: str, output_dir: str):
-    monthly_data = df[df["month"] == month].copy()
-    income = monthly_data[monthly_data["type"] == "income"]["price"].sum()
-    spending = monthly_data[monthly_data["type"] == "spending"]["price"].sum()
-    savings = income - spending
+def generate_report(data, month, template_dir, report_dir):
+    # Create PDF object
+    pdf = FPDF()
+    pdf.set_auto_page_break(auto=True, margin=15)
+    pdf.add_page()
 
-    monthly_data_sorted = monthly_data.sort_values("date")
+    # Set font
+    pdf.set_font("Arial", size=12)
 
-    env = Environment(loader=FileSystemLoader(template_dir))
-    template = env.get_template("report_template.html")
+    # Add a title
+    pdf.cell(200, 10, txt=f"Monthly Report for {month}", ln=True, align='C')
 
-    html_content = template.render(
-        month=month,
-        income=income,
-        spending=spending,
-        savings=savings,
-        transactions=monthly_data_sorted.to_dict(orient="records"),
-        generated_on=datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    )
+    # Example content (replace with your actual logic)
+    total_income = sum(entry['price'] for entry in data if entry['type'] == 'income' and entry['month'] == month)
+    total_spending = sum(entry['price'] for entry in data if entry['type'] == 'spending' and entry['month'] == month)
 
-    Path(output_dir).mkdir(parents=True, exist_ok=True)
-    html_path = Path(output_dir) / f"report_{month}.html"
-    pdf_path = Path(output_dir) / f"report_{month}.pdf"
+    # Add content
+    pdf.ln(10)  # Line break
+    pdf.cell(200, 10, txt=f"Total Income: {total_income:.2f}", ln=True)
+    pdf.cell(200, 10, txt=f"Total Spending: {total_spending:.2f}", ln=True)
 
-    with open(html_path, "w", encoding="utf-8") as f:
-        f.write(html_content)
+    # Save the PDF to a file
+    report_path = f"{report_dir}/monthly_report_{month}.pdf"
+    pdf.output(report_path)
 
-    HTML(string=html_content).write_pdf(pdf_path)
-
-    return str(pdf_path)
+    return report_path

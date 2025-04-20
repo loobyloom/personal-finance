@@ -92,7 +92,16 @@ if len(months) >= 2:
         st.metric(f"Savings Change", f"{delta['savings_diff']:.2f}")
 
 st.header("📄 Generate Monthly Report")
+months = get_months(data)  # Assuming get_months() gets the months from your data
+
 report_month = st.selectbox("Select month for report", months, key="report_month")
 if st.button("Generate PDF Report"):
     pdf_path = generate_report(data, report_month, TEMPLATE_DIR, REPORT_DIR)
+    with open(pdf_path, "rb") as pdf_file:
+        st.download_button(
+            label="Download PDF",
+            data=pdf_file,
+            file_name=f"monthly_report_{report_month}.pdf",
+            mime="application/pdf"
+        )
     st.success(f"Report generated: {pdf_path}")
