@@ -1,0 +1,9 @@
+date,name,vendor/target,price,currency,type,category,subcategory,details,payment_method,account,savings_goal,month,savings
+2024-04-01,Salary,,5000,RON,income,Salary,Full-time,,Bank Transfer,ING,1000,2024-04,5000
+2024-04-03,Grocery,Lidl,250.5,RON,spending,Food,Grocery,Weekly shopping,Card,Revolut,0,2024-04,-250.5
+2024-04-05,Utilities,Enel,150.75,RON,spending,Bills,Electricity,Monthly bill,Bank Transfer,ING,0,2024-04,-150.75
+2024-04-10,Coffee,Bob Coffee Lab,22,RON,spending,Food,Coffee,,Card,Revolut,0,2024-04,-22
+2024-04-12,Gift,,100,RON,spending,Other,Gift,Birthday gift for friend,Cash,BT,0,2024-04,-100
+2024-04-15,Freelance Project,ClientX,800,EUR,income,Freelance,Web Dev,Website landing page,Bank Transfer,Wise,0,2024-04,800
+2024-04-18,Transport,Metrorex,70,RON,spending,Transport,Metro,Monthly pass,Card,BT,0,2024-04,-70
+2024-04-22,Bookstore,Cărturești,85,RON,spending,Education,Books,Python book,Cash,ING,0,2024-04,-85

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Monthly Report - {{ month }}</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        h1 { color: #333; }
+        table { border-collapse: collapse; width: 100%; margin-bottom: 20px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+    </style>
+</head>
+<body>
+    <h1>📄 Monthly Finance Report - {{ month }}</h1>
+
+    <h2>Overview</h2>
+    <ul>
+        <li>Total Income: {{ total_income }}</li>
+        <li>Total Spending: {{ total_spending }}</li>
+        <li>Net Savings: {{ net_savings }}</li>
+    </ul>
+
+    <h2>Income by Category</h2>
+    {{ income_table | safe }}
+
+    <h2>Spending by Category</h2>
+    {{ spending_table | safe }}
+
+    <h2>Detailed Transactions</h2>
+    {{ transactions_table | safe }}
+</body>
+</html>
